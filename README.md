@@ -1,2 +1,2 @@
-# CVPR-
+# CVPR
 CVPR labs (opencv)
