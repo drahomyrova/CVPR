@@ -1,0 +1,44 @@
+import cv2
+import numpy as np
+#Capturing the video using the webcam, creating the "lab1.avi" file
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+fourcc = cv2.VideoWriter_fourcc(*"DIVX")
+out = cv2.VideoWriter("lab1_i.avi", fourcc, 30, (640,480))
+while(cap.isOpened()):
+	ret, img = cap.read()
+	if ret == True:
+		img2 = cv2.flip(img, 1)
+		cv2.imshow("flipped", img2)
+		out.write(img2)
+		if cv2.waitKey(1) & 0xFF == ord(' '):
+			break
+	else:
+		break
+cap.release()
+out.release()
+cv2.destroyAllWindows()
+
+#Capturing the video from the "lab1.avi" file
+cap = cv2.VideoCapture('lab1.avi')
+fourcc = cv2.VideoWriter_fourcc(*"DIVX")
+out = cv2.VideoWriter('lab1_gray_kruzhochki.avi',fourcc, 30, (640,480))
+
+while(cap.isOpened()):
+	ret, frame = cap.read()
+	if ret == True:
+		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		brg = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+		begin = (250,250) 
+		end = (180,180) 
+		cv2.rectangle(brg, begin, end,(112, 39, 168) , 7)
+		x1, y1 = (500,0)
+		x2, y2 = (500,480)
+		cv2.line(brg, (x1,y1), (x2,y2), (54, 237, 26), 3)
+		cv2.circle(brg, (550,315), 105, (255, 64, 140), 8)
+		cv2.circle(brg, (np.random.randint(0, 641), np.random.randint(0, 481)), np.random.randint(0, 200), (np.random.randint(0, 256), np.random.randint(0, 256), (np.random.randint(0, 256))), np.random.randint(3, 11))
+		out.write(brg)
+	else:
+		break
+cap.release()
+out.release()
+cv2.destroyAllWindows()
